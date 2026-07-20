@@ -7,8 +7,14 @@ const mysql = require('mysql2');
   database: 'Delta_class',
   password:'ganesh@1496',
 });
+
+   let q = "INSERT INTO user (id,username,email,password) values ?";
+   let users = [
+    [14962,"Ganeshmachale","001anesh@gmail.com",12234],
+    [1234,"Aditya","aditya@gmail.com",3456],
+               ];
    try{
-     connection.query('show tables',(err,result)=>{
+     connection.query(q,[users],(err,result)=>{
            if(err) throw err;
            console.log(result);  
      })
