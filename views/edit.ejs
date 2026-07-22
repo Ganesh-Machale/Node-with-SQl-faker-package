@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>edit page </title>
+</head>
+<body>
+    <H1> you are editing this user profile : <%= user.email %></H1>
+   <form method="post" action="/user/<%= user.id %>?_method=PATCH">
+      <textarea name="username"> <%= user.username %> </textarea>
+      <input type="password" placeholder="password">
+      <button>Edit</button>
+   </form>
+</body>
+</html>

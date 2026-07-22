@@ -3,6 +3,7 @@ const mysql = require('mysql2');
 const express = require("express");
 const app = express();
 const path = require("path");
+const methoverride = require("method-override");
 
 
 
@@ -33,16 +34,16 @@ const path = require("path");
   //     data.push(getRandomUser());  // for 100 facke users data
   //   }
      
-    // try{
-    //  connection.query(q, [data],(err,result) =>{
-    //   if(err) throw err;
-    //     console.log(result);
-    //  });
-    // }catch(err){
-    //   console.log(err);
-    // }
+  //   try{
+  //    connection.query(q, [data],(err,result) =>{
+  //     if(err) throw err;
+  //       console.log(result);
+  //    });
+  //   }catch(err){
+  //     console.log(err);
+  //   }
     
-    // connection.end();
+  //   connection.end();
 
 
 
@@ -60,6 +61,30 @@ const path = require("path");
              res.send("some error has occur");
        }
     });
+
+
+    // GET Users route 
+      
+    // in this route we are showing the all users 
+    app.get("/user",(req,res)=>{
+      let  v = "SELECT * FROM user";
+         try{
+          connection.query(v , (err,users) =>{
+            if(err) throw err;
+            res.render("users.ejs",{users});
+          });
+         }catch(err){
+             console.log(err);
+         }
+    });
+
+    //  Edit route 
+
+    app.get("/user/:id/edit",(req,res)=>{
+      let { id } = req.params;
+     let q = `SELECT * FROM user WHERE id="${id}"`;
+      res.render("edit.ejs")
+    })
 
     app.listen("8080",()=>{
           console.log("server ie Runing on Port 8080"); 
