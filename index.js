@@ -6,7 +6,8 @@ const path = require("path");
 const methoverride = require("method-override");
 
 
-
+    app.use(methoverride("_method"));
+     app.use(express.urlencoded({extended:true}))
    app.set("view engine","ejs");
    app.set("views",path.join(__dirname,"/views"));
 
@@ -86,6 +87,12 @@ const methoverride = require("method-override");
       res.render("edit.ejs")
     })
 
+    // Update (DB) Route 
+    app.patch("/user/:id",(req,res)=>{
+      res.send("Updated");
+    });
+
+    
     app.listen("8080",()=>{
           console.log("server ie Runing on Port 8080"); 
     });
