@@ -4,6 +4,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const methoverride = require("method-override");
+const { v4: uuidv4 } = require("uuid");
 
 
     app.use(methoverride("_method"));
@@ -125,6 +126,27 @@ const methoverride = require("method-override");
  
     });
 
+    // NEW User GET Route
+     app.get("/user/new",(req,res)=>{
+        res.render("newuser.ejs");
+     });
+
+
+     // NEW User POST Route where actually user created
+       app.post("/user/new",(req,res)=>{
+        let {username,password,email} = req.body;
+        let id = uuidv4();
+        // insert query
+         let q = `INSERT INTO user VALUES ('${id}','${username}','${email}','${password}')`;
+   try{
+         connection.query(q,(err,result)=>{
+          if (err) throw err;
+            res.redirect("/user");
+         })
+        }catch(err){
+          res.send(err);
+        }     
+       });
     
     app.listen("8080",()=>{
           console.log("server ie Runing on Port 8080"); 
