@@ -7,3 +7,4 @@
 );
     ALTER table user
      modify id varchar(50);
+ 

@@ -84,12 +84,45 @@ const methoverride = require("method-override");
     app.get("/user/:id/edit",(req,res)=>{
       let { id } = req.params;
      let q = `SELECT * FROM user WHERE id="${id}"`;
-      res.render("edit.ejs")
+         try{
+             connection.query(q,(err,result)=>{
+                if (err) throw err;
+                 let user = result[0];
+                res.render("edit.ejs",{ user});
+             });
+         }catch (err){
+           res.send(err);
+         }
     })
 
     // Update (DB) Route 
     app.patch("/user/:id",(req,res)=>{
-      res.send("Updated");
+       let { id } = req.params;
+           
+       let { username, password: formpass } = req.body;
+        let q = `SELECT * FROM user WHERE id="${id}"`;         
+            try{
+             connection.query(q,(err,result)=>{
+                if (err) throw err;
+                 let user = result[0];
+                  // console.log(user);
+                  // console.log(user.password);
+                  // console.log(formpass);
+                  // console.log(req.body);
+                 if(formpass != user.password){
+                   res.send("Email and password Wrong password");
+                 }else{
+                  let q2 = `UPDATE user SET username='${username}' WHERE id='${id}' `;
+                  connection.query(q2,(err,result)=>{
+                     if (err) throw err;
+                      res.redirect("/user");
+                  })
+                 }
+             });
+         }catch (err){
+           res.send(err);
+         }
+ 
     });
 
     

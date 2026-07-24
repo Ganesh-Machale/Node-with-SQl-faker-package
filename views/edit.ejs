@@ -10,7 +10,11 @@
     <H1> you are editing this user profile : <%= user.email %></H1>
    <form method="post" action="/user/<%= user.id %>?_method=PATCH">
       <textarea name="username"> <%= user.username %> </textarea>
-      <input type="password" placeholder="password">
+      <input
+            type="password"
+            name="password"
+            placeholder="Enter your password">  
+            
       <button>Edit</button>
    </form>
 </body>
