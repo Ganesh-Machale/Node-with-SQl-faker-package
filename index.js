@@ -147,8 +147,17 @@ const { v4: uuidv4 } = require("uuid");
           res.send(err);
         }     
        });
-       
-    
+
+      //GET Route for deleting the user
+        app.get("/user/:id/Delete",(req,res)=>{
+              res.render("deleteuser.ejs");
+        });
+
+         //Delete Route for deleting the user
+        app.post("/user/:id/Delete",(req,res)=>{
+          let { id } = req.params;
+          
+        })
     app.listen("8080",()=>{
           console.log("server ie Runing on Port 8080"); 
     });
