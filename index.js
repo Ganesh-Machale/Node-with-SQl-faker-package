@@ -150,11 +150,22 @@ const { v4: uuidv4 } = require("uuid");
 
       //GET Route for deleting the user
         app.get("/user/:id/Delete",(req,res)=>{
-              res.render("deleteuser.ejs");
-        });
+               let { id } = req.params;
+                let q = `SELECT * FROM user WHERE id='${id}'`;
+
+                try {
+                  connection.query(q, (err, result) => {
+                  if (err) throw err;
+                  let user = result[0];
+                   res.render("deleteuser.ejs", { user });
+                        });
+                    } catch (err) {
+                      res.send("some error with DB");
+                        }
+                 });
 
          //Delete Route for deleting the user
-        app.post("/user/:id/Delete",(req,res)=>{
+        app.delete("/user/:id/Delete",(req,res)=>{
           let { id } = req.params;
           
         })
